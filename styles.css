@@ -22,3 +22,9 @@
   flex-direction: column;
   gap: 10px;
 }
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
