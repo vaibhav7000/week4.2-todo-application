@@ -5,6 +5,8 @@ let oldTodos = []; // the old state in React is maintained using VirtualDOM (kin
 
 // Doing DOM manipulation is expensive
 
+
+// This is what React Calculates
 function calculateDifferenceReactApproach(latestTodos) {
     if(oldTodos.length === 0) {
         oldTodos = latestTodos;
@@ -61,15 +63,19 @@ function calculateDifferenceReactApproach(latestTodos) {
         }
     }
 
+    // if any difference is calculated then React delegates the task of DOM manipulation to the ReactDOM
     if(addTodo.length) {
+        // these DOM updation functions is taken care by the ReactDOM
         addTodoDOMManipulation(addTodo);
     }
 
     if(updateTodos.length) {
+        // these DOM updation functions is taken care by the ReactDOM
         updateTodoDomManipulation(updateTodos);
     }
 
     if(deleteTodos.length) {
+        // these DOM updation functions is taken care by the ReactDOM
         deleteElementDomManipulation(deleteTodos);
     }
 
