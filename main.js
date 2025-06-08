@@ -6,15 +6,10 @@ let oldTodos = []; // the old state in React is maintained using VirtualDOM (kin
 // Doing DOM manipulation is expensive
 
 
-// This is what React Calculates
-function calculateDifferenceReactApproach(latestTodos) {
-    if(oldTodos.length === 0) {
-        oldTodos = latestTodos;
-        addTodoDOMManipulation(oldTodos);
-        return;
-        // intially no todo is present in screen => add the todos on the screen
-    }
-    // added Todos (compare with the latest todos and then update the oldTodos)
+// This is what React Calculates ( we provide latest-state to API that React provides us and then calculates the difference between the states and if there is any than Performs the DOM manipulation using ReactDOM )
+function calculateDifferneceBetweenStates(latestTodos) {
+    // this is my logic but "react performs the same intitution for calculating the difference"
+    // added Todos
     const addTodo = [];
     // deleted Todos
     const deleteTodos = [];
@@ -135,9 +130,18 @@ async function fetchTodosFromServer() {
     const resposne = await fetch("http://localhost:3000/todos");
     const todos = await resposne.json();
 
-    calculateDifferenceReactApproach(todos)
+    calculateDifferneceBetweenStates(todos)
 }
 
 setInterval(fetchTodosFromServer, 4000);
 
 fetchTodosFromServer();
+
+
+// React provides us the syntax for declare the application "state" (using useState ) and also provides the apis to whom latest state will be passed and then based on that it will peform re-renders / dom-manipulation will happen.
+
+// React is a "difference calculation framework" that has algorithms to do that and ReactDOM provides the actual code to do the DOM-manipulation
+
+
+// When creating react-application
+// We have to follow the React syntax to create the application. The syntax includes three things 1. "declaring state"/ state-variables 2. "Components" (functions that provide the HTML code with data as state-vairbales) 3. Re-renders (when the state-variable changes ( there is acutal difference between the two states ) it only performs the DOM-manipulation on the updated value / makes the DOM-manipulation less expensive)
